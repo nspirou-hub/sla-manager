@@ -1,0 +1,54 @@
+.tasks-page { max-width: 1400px; }
+
+.search-bar {
+  position: relative;
+  margin-bottom: 12px;
+}
+.search-bar input {
+  width: 100%;
+  padding-left: 36px;
+  padding-right: 32px;
+  height: 38px;
+}
+.search-icon {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-text3);
+  pointer-events: none;
+}
+.search-clear {
+  position: absolute;
+  right: 8px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: var(--c-text3); cursor: pointer;
+  padding: 2px;
+}
+.search-clear:hover { color: var(--c-text); }
+
+.filters-panel { margin-bottom: 12px; padding: 16px !important; }
+
+.filter-badge {
+  width: 6px; height: 6px;
+  background: var(--c-gold);
+  border-radius: 50%;
+}
+.active-filter {
+  border-color: var(--c-accent) !important;
+  color: var(--c-accent2) !important;
+}
+
+.table-card { padding: 0 !important; overflow: hidden; }
+.table-wrap { overflow-x: auto; }
+.table-wrap table { min-width: 800px; }
+
+.task-row { cursor: pointer; }
+
+.row-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.task-row:hover .row-actions { opacity: 1; }

@@ -1,0 +1,63 @@
+.dashboard { max-width: 1400px; }
+.loading-wrap { display: flex; align-items: center; justify-content: center; height: 60vh; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 1024px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px)  { .kpi-grid { grid-template-columns: 1fr; } }
+
+.kpi-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.15s;
+}
+.kpi-card:hover { border-color: var(--c-border2); }
+
+.kpi-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.kpi-blue   .kpi-icon { background: rgba(41,121,194,0.15); color: #60A5FA; }
+.kpi-green  .kpi-icon { background: rgba(16,185,129,0.15); color: #10B981; }
+.kpi-gold   .kpi-icon { background: rgba(245,158,11,0.15); color: #F59E0B; }
+.kpi-purple .kpi-icon { background: rgba(139,92,246,0.15); color: #A78BFA; }
+
+.kpi-value { font-size: 22px; font-weight: 700; color: var(--c-text); line-height: 1.1; }
+.kpi-label { font-size: 12px; color: var(--c-text2); margin-top: 2px; }
+.kpi-sub   { font-size: 11px; color: var(--c-text3); margin-top: 2px; }
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 320px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 1100px) { .charts-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px)  { .charts-row { grid-template-columns: 1fr; } }
+
+.chart-card { padding: 16px !important; }
+.chart-title { font-size: 13px; font-weight: 600; color: var(--c-text2); margin-bottom: 12px; }
+
+.pie-legend { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.pie-legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--c-text2);
+}
+.pie-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.pie-count { margin-left: auto; font-weight: 600; color: var(--c-text); font-family: var(--font-mono); }
+
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
