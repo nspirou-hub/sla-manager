@@ -1,0 +1,20 @@
+.users-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--c-text2);
+  margin-bottom: 14px;
+}
+
+.users-success {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: #10B981; border-radius: var(--radius);
+  padding: 10px 12px; font-size: 13px; margin-bottom: 12px;
+}
+
+.user-avatar-sm {
+  width: 30px; height: 30px;
+  background: var(--c-accent); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+}

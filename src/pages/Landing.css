@@ -1,0 +1,165 @@
+.landing {
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font);
+}
+
+/* Nav */
+.land-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--c-border);
+  background: var(--c-surface);
+  position: sticky; top: 0; z-index: 50;
+}
+.land-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 16px; font-weight: 700; color: var(--c-text);
+}
+.land-logo-icon {
+  width: 32px; height: 32px; background: var(--c-accent);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.land-nav-actions { display: flex; gap: 10px; }
+
+.btn-land-primary {
+  background: var(--c-accent); color: #fff;
+  border: none; border-radius: var(--radius);
+  padding: 9px 20px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s;
+  font-family: var(--font);
+}
+.btn-land-primary:hover { background: var(--c-accent2); }
+.btn-land-ghost {
+  background: transparent; color: var(--c-text2);
+  border: 1px solid var(--c-border); border-radius: var(--radius);
+  padding: 9px 20px; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s;
+  font-family: var(--font);
+}
+.btn-land-ghost:hover { background: var(--c-surface2); color: var(--c-text); }
+.btn-lg { padding: 13px 28px !important; font-size: 15px !important; }
+
+/* Hero */
+.land-hero {
+  text-align: center; padding: 80px 48px 60px;
+  max-width: 900px; margin: 0 auto;
+}
+.land-badge {
+  display: inline-block; background: rgba(41,121,194,0.12);
+  color: var(--c-accent2); border: 1px solid rgba(41,121,194,0.3);
+  border-radius: 99px; padding: 6px 16px;
+  font-size: 13px; font-weight: 600; margin-bottom: 24px;
+}
+.land-hero h1 {
+  font-size: 48px; font-weight: 800; line-height: 1.15;
+  color: var(--c-text); margin-bottom: 20px;
+}
+.land-hero p {
+  font-size: 18px; color: var(--c-text2); line-height: 1.7;
+  max-width: 640px; margin: 0 auto 32px;
+}
+.land-hero-actions { display: flex; gap: 12px; justify-content: center; margin-bottom: 48px; }
+
+/* Mockup */
+.land-hero-img { display: flex; justify-content: center; }
+.land-mockup {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 12px; overflow: hidden; width: 100%; max-width: 700px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+}
+.mockup-bar {
+  background: var(--c-surface2); padding: 10px 14px;
+  display: flex; gap: 6px; border-bottom: 1px solid var(--c-border);
+}
+.mockup-bar span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--c-border2);
+}
+.mockup-content { padding: 16px; }
+.mockup-kpis { display: flex; gap: 8px; margin-bottom: 12px; }
+.mockup-kpi {
+  flex: 1; background: rgba(41,121,194,0.1);
+  border: 1px solid rgba(41,121,194,0.2);
+  border-radius: 6px; padding: 10px; text-align: center;
+  font-size: 11px; font-weight: 600; color: var(--c-accent2);
+}
+.mockup-table { display: flex; flex-direction: column; gap: 6px; }
+.mockup-row { display: flex; gap: 8px; align-items: center; }
+.mockup-cell {
+  height: 10px; border-radius: 3px;
+  background: var(--c-border); flex: 1;
+}
+.mockup-cell.short { flex: 0.4; }
+.mockup-cell.amount { flex: 0.5; background: rgba(16,185,129,0.2); }
+
+/* Sections */
+.land-section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+.land-section-header { text-align: center; margin-bottom: 48px; }
+.land-section-header h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; }
+.land-section-header p  { font-size: 16px; color: var(--c-text2); }
+
+/* Features */
+.land-features {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.land-feature {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg); padding: 24px;
+  transition: border-color 0.15s;
+}
+.land-feature:hover { border-color: var(--c-accent); }
+.land-feature-icon {
+  width: 44px; height: 44px; background: rgba(41,121,194,0.12);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  color: var(--c-accent2); margin-bottom: 14px;
+}
+.land-feature h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.land-feature p  { font-size: 13px; color: var(--c-text2); line-height: 1.6; }
+
+/* Pricing */
+.land-pricing-section { background: var(--c-surface); border-radius: 16px; max-width: 100% !important; padding: 80px !important; }
+.land-plans { display: flex; gap: 20px; justify-content: center; max-width: 900px; margin: 0 auto; }
+.land-plan {
+  flex: 1; background: var(--c-bg); border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg); padding: 28px; position: relative;
+}
+.land-plan.highlight {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 1px var(--c-accent), 0 8px 32px rgba(41,121,194,0.2);
+}
+.land-plan-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--c-accent); color: #fff;
+  font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px;
+  white-space: nowrap;
+}
+.land-plan-name  { font-size: 13px; font-weight: 700; color: var(--c-text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.land-plan-price { font-size: 36px; font-weight: 800; color: var(--c-text); margin-bottom: 20px; }
+.land-plan-price span { font-size: 14px; font-weight: 400; color: var(--c-text2); }
+.land-plan-features { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+.land-plan-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--c-text2); }
+.land-plan-features li svg { color: var(--c-green); flex-shrink: 0; }
+.land-plan button { width: 100%; }
+
+/* Footer */
+.land-footer {
+  text-align: center; padding: 32px 48px;
+  border-top: 1px solid var(--c-border);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.land-footer p { font-size: 12px; color: var(--c-text3); }
+
+@media (max-width: 768px) {
+  .land-nav { padding: 12px 20px; }
+  .land-hero { padding: 48px 20px 40px; }
+  .land-hero h1 { font-size: 28px; }
+  .land-hero p  { font-size: 15px; }
+  .land-hero-actions { flex-direction: column; align-items: center; }
+  .land-features { grid-template-columns: 1fr; }
+  .land-plans { flex-direction: column; }
+  .land-pricing-section { padding: 40px 20px !important; }
+  .land-section { padding: 48px 20px; }
+}

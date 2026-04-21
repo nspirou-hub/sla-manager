@@ -47,7 +47,7 @@ export default function Locations() {
           <div className="page-title">Τοποθεσίες</div>
           <div className="page-sub">{locations.length} τοποθεσίες</div>
         </div>
-        <button className="btn btn-primary" onClick={() => { setEditId('new'); setForm(EMPTY) }}>
+        <button className="btn btn-primary" onClick={() => { setEditId(null); setForm(EMPTY) }}>
           <Plus size={15} /> Νέα Τοποθεσία
         </button>
       </div>

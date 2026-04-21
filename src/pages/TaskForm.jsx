@@ -137,7 +137,7 @@ export default function TaskForm() {
           {/* Basic info */}
           <div className="card form-section">
             <div className="form-section-title">📋 Βασικά Στοιχεία</div>
-            <div className="form-row" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <div className="form-row" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
               <div className="form-group">
                 <label className="form-label">Ημερομηνία *</label>
                 <input type="date" value={form.task_date}
@@ -189,7 +189,7 @@ export default function TaskForm() {
           {/* Time */}
           <div className="card form-section">
             <div className="form-section-title"><Clock size={14} /> Χρόνος Εργασίας</div>
-            <div className="form-row" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+            <div className="form-row" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))' }}>
               <div className="form-group">
                 <label className="form-label">Έναρξη</label>
                 <input type="time" value={form.task_start || ''}
@@ -214,7 +214,7 @@ export default function TaskForm() {
           {/* Drive */}
           <div className="card form-section">
             <div className="form-section-title"><Navigation size={14} /> Μετακίνηση</div>
-            <div className="form-row" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <div className="form-row" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
               <div className="form-group">
                 <label className="form-label">Χιλιόμετρα</label>
                 <input type="number" step="0.5" min="0" value={form.drive_km}

@@ -14,6 +14,7 @@ export default function Reports() {
   const [clients, setClients] = useState([])
   const [tasks, setTasks]     = useState([])
   const [loading, setLoading] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     getClients().then(({ data }) => setClients(data || []))
@@ -57,7 +58,12 @@ export default function Reports() {
 
   // Print PDF via browser print dialog (styled)
   const printPDF = () => {
+    const original = document.title
+    const fromStr = from.split('-').reverse().join('/')
+    const toStr   = to.split('-').reverse().join('/')
+    document.title = `SLA_Report_${client.replace(/\s+/g,'_')}_${from}_${to}`
     window.print()
+    document.title = original
   }
 
   return (
@@ -93,9 +99,21 @@ export default function Reports() {
           </div>
           <div className="form-group" style={{ justifyContent: 'flex-end' }}>
             <label className="form-label">&nbsp;</label>
-            <button className="btn btn-primary" onClick={printPDF} disabled={!tasks.length}>
-              <FileText size={15} /> Εκτύπωση PDF
-            </button>
+            <div style={{ display:'flex', gap:6 }}>
+              <button className="btn btn-ghost" title="Αντιγραφή ονόματος αρχείου"
+                onClick={() => {
+                  const name = `SLA_Report_${client.replace(/\s+/g,'_')}_${from}_${to}`
+                  navigator.clipboard.writeText(name).then(() => {
+                    setCopied(true)
+                    setTimeout(() => setCopied(false), 2500)
+                  })
+                }} disabled={!tasks.length}>
+                {copied ? '✅' : '📋'}
+              </button>
+              <button className="btn btn-primary" onClick={printPDF} disabled={!tasks.length}>
+                <FileText size={15} /> Εκτύπωση PDF
+              </button>
+            </div>
           </div>
         </div>
 
@@ -174,11 +192,16 @@ export default function Reports() {
         ) : (
           <>
             <h3 className="print-section-title">Αναλυτικές Εντολές Εργασίας</h3>
-            <div style={{ overflowX: 'auto' }}>
-              <table className="print-table">
+            <table className="print-table">
+                <colgroup>
+                  <col/><col/><col/><col/>
+                  <col/><col/><col/><col/>
+                  <col/><col/><col/><col/>
+                  <col/><col/>
+                </colgroup>
                 <thead>
                   <tr>
-                    <th>Ημ/νία</th><th>Κωδικός</th><th>Τοποθεσία</th>
+                    <th>Ημ/νία</th><th>Τοποθεσία</th>
                     <th>Τύπος</th><th>Σύνοψη</th>
                     <th>Έναρξη</th><th>Λήξη</th><th>Διάρκ.</th>
                     <th>Χλμ</th><th>Ώρες Οδ.</th>
@@ -190,10 +213,9 @@ export default function Reports() {
                   {tasks.map(t => (
                     <tr key={t.id}>
                       <td>{fmtDate(t.task_date)}</td>
-                      <td className="mono" style={{fontSize:11}}>{(t.task_code||'').slice(0,8)}</td>
                       <td>{t.location_name||'-'}</td>
                       <td>{t.task_type_name||'-'}</td>
-                      <td style={{maxWidth:180,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{t.summary||'-'}</td>
+                      <td>{t.summary ? t.summary.slice(0,60)+(t.summary.length>60?'…':'') : '-'}</td>
                       <td>{t.task_start?.slice(0,5)||'-'}</td>
                       <td>{t.task_end?.slice(0,5)||'-'}</td>
                       <td>{t.duration_hours||0}</td>
@@ -209,19 +231,75 @@ export default function Reports() {
                 </tbody>
                 <tfoot>
                   <tr className="tr-total">
-                    <td colSpan={7}><strong>ΣΥΝΟΛΑ</strong></td>
+                    <td colSpan={4}><strong>ΣΥΝΟΛΑ — {tasks.length} εντολές</strong></td>
+                    <td colSpan={2}></td>
                     <td><strong>{Math.round(totalHours*10)/10}</strong></td>
                     <td><strong>{Math.round(totalKm)}</strong></td>
-                    <td></td>
+                    <td><strong>{tasks.reduce((s,t)=>s+(t.drive_hours||0),0).toFixed(1)}</strong></td>
                     <td><strong>{fmtEur(totalHCost)}</strong></td>
                     <td><strong>{fmtEur(totalDCost)}</strong></td>
-                    <td></td>
+                    <td><strong>{fmtEur(tasks.reduce((s,t)=>s+(t.duration_cost||0),0))}</strong></td>
                     <td><strong>{fmtEur(totalExtra)}</strong></td>
                     <td><strong>{fmtEur(totalSum)}</strong></td>
                   </tr>
                 </tfoot>
               </table>
+          {/* Summary by task type */}
+          {tasks.length > 0 && (() => {
+            const byType = {}
+            tasks.forEach(t => {
+              const k = t.task_type_name || 'Άλλο'
+              if (!byType[k]) byType[k] = { count:0, hours:0, total:0 }
+              byType[k].count++
+              byType[k].hours += t.duration_hours||0
+              byType[k].total += t.total_sum||0
+            })
+            const rows = Object.entries(byType).sort((a,b)=>b[1].total-a[1].total)
+            const fmtH = h => {
+              const hrs=Math.floor(h), mins=Math.round((h-hrs)*60)
+              return `${hrs}ω ${String(mins).padStart(2,'0')}'`
+            }
+            return (
+              <>
+                <h3 className="print-section-title" style={{marginTop:20}}>Ανάλυση ανά Τύπο Εργασίας</h3>
+                <table className="print-table" style={{width:'55%',minWidth:'300px'}}>
+                  <thead>
+                    <tr>
+                      <th style={{textAlign:'left',width:'50%'}}>Τύπος Εργασίας</th>
+                      <th style={{textAlign:'center',width:'15%'}}>Εντολές</th>
+                      <th style={{textAlign:'center',width:'20%'}}>Συν. Ωρών</th>
+                      <th style={{textAlign:'right',width:'15%'}}>Συν. Αξία</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map(([name,v],i) => (
+                      <tr key={i}>
+                        <td style={{textAlign:'left'}}>{name}</td>
+                        <td style={{textAlign:'center'}}>{v.count}</td>
+                        <td style={{textAlign:'center'}}>{fmtH(v.hours)}</td>
+                        <td style={{textAlign:'right',fontWeight:600,color:'#10B981'}}>{fmtEur(v.total)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="tr-total">
+                      <td style={{textAlign:'left'}}><strong>ΣΥΝΟΛΟ</strong></td>
+                      <td style={{textAlign:'center'}}><strong>{tasks.length}</strong></td>
+                      <td style={{textAlign:'center'}}><strong>{fmtH(totalHours)}</strong></td>
+                      <td style={{textAlign:'right'}}><strong style={{color:'#10B981'}}>{fmtEur(totalSum)}</strong></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </>
+            )
+          })()}
+
+          {/* Footer */}
+          {tasks.length > 0 && (
+            <div className="print-footer">
+              Digital Center | SLA Report | Περίοδος: {fmtDate(from)} – {fmtDate(to)} | Εκδόθηκε: {new Date().toLocaleString('el-GR')}
             </div>
+          )}
           </>
         )}
       </div>

@@ -66,7 +66,7 @@ export default function Settings() {
         <div style={{ fontWeight: 700, marginBottom: 16, color: 'var(--c-text)', fontSize: 14 }}>
           💰 Παράμετροι Κοστολόγησης
         </div>
-        <div className="form-row" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+        <div className="form-row" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))' }}>
           <div className="form-group">
             <label className="form-label">Χρέωση ανά ώρα (€)</label>
             <input type="number" step="0.5" value={settings.hourly_rate}
